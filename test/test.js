@@ -1,6 +1,6 @@
 
-const fs = require('fs');
 const expect = require('chai').expect;
+const fs = require('fs');
 const ImageMeta = require('../src/ImageMeta.js');
 
 
@@ -8,7 +8,7 @@ const ImageMeta = require('../src/ImageMeta.js');
 describe('UByteTest()', function () {
     it('Test unsigned byte handling', function () {
 
-        file = fs.readFileSync('./img.jpg').buffer;
+        file = fs.readFileSync('./test/img.jpg').buffer;
         binary = new DataView(file);
         let exif = new ImageMeta(binary);
 
