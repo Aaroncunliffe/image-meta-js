@@ -54,7 +54,7 @@ module.exports = class ImageMeta {
      * @returns boolean - if JPEG marker exists
      */
     _checkJPEG() {
-        let result = binary.getUint16(0x00) == JPEGStart;
+        let result = this.binary.getUint16(0x00) == JPEGStart;
         this._log('JPEG marker exists: ' + result);
         return result;
     }
@@ -125,7 +125,6 @@ module.exports = class ImageMeta {
     }
 
     _getOffsetToFirstIFD() {
-        //let offset = 0x0C + this.binary.getUint32(0x10, this.isLittleEndian);
         let offset = this.tiffBaseOffset + this.binary.getUint32(this.app1Offset + IDF0Offset, this.isLittleEndian);
         this._log('Offset to first IFD - ' + offset);
         return offset
@@ -190,10 +189,10 @@ module.exports = class ImageMeta {
     _parseData(entryOffset, type) {
 
         // byte 0-2
-        let tagCode = binary.getUint16(entryOffset, this.isLittleEndian);           // the tag code
+        let tagCode = this.binary.getUint16(entryOffset, this.isLittleEndian);           // the tag code
 
         // byte 2-4
-        let formatCode = binary.getUint16(entryOffset + 2, this.isLittleEndian);    // what the format is
+        let formatCode = this.binary.getUint16(entryOffset + 2, this.isLittleEndian);    // what the format is
 
         // byte 4-8
         let length = this.binary.getUint16(entryOffset + 4, this.isLittleEndian)    // Number of values
@@ -205,7 +204,7 @@ module.exports = class ImageMeta {
         offset.data = entryOffset + 8;
         // OR
         offset.pointer = (this.app1Offset + endianOffset) +
-            binary.getUint16(offset.data, this.isLittleEndian);
+            this.binary.getUint16(offset.data, this.isLittleEndian);
         
         let exifTag  = undefined;
         // Create handler object
@@ -285,9 +284,9 @@ module.exports = class ImageMeta {
     _handleString(exifTagObj, offsetObj, length) {
         let data = undefined;
         if (length < 4) {
-            data = this._getStringFromBinary(binary, offsetObj.data, length);
+            data = this._getStringFromBinary(this.binary, offsetObj.data, length);
         } else {
-            data = this._getStringFromBinary(binary, offsetObj.pointer, length);
+            data = this._getStringFromBinary(this.binary, offsetObj.pointer, length);
         }
         let processedData = exifTagObj.processString(data);
         this._setData(exifTagObj, processedData);
