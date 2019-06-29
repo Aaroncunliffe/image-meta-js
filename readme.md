@@ -1,4 +1,6 @@
 
+[![Build Status](https://travis-ci.org/Aaroncunliffe/image-meta-js.svg?branch=master)](https://travis-ci.org/Aaroncunliffe/image-meta-js)
+
 TESTS - Want that passing logo
 DOCS - docs logo? 
 
