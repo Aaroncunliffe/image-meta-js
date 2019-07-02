@@ -283,10 +283,10 @@ module.exports = class ImageMeta {
      */
     _handleString(exifTagObj, offsetObj, length) {
         let data = undefined;
-        if (length < 4) {
-            data = this._getStringFromBinary(this.binary, offsetObj.data, length);
+        if (length <= 4) {
+            data = this._getStringFromBinary(this.binary, offsetObj.data, length -1);
         } else {
-            data = this._getStringFromBinary(this.binary, offsetObj.pointer, length);
+            data = this._getStringFromBinary(this.binary, offsetObj.pointer, length -1);
         }
         let processedData = exifTagObj.processString(data);
         this._setData(exifTagObj, processedData);
