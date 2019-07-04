@@ -195,7 +195,7 @@ module.exports = class ImageMeta {
         let formatCode = this.binary.getUint16(entryOffset + 2, this.isLittleEndian);    // what the format is
 
         // byte 4-8
-        let length = this.binary.getUint16(entryOffset + 4, this.isLittleEndian)    // Number of values
+        let length = this.binary.getUint32(entryOffset + 4, this.isLittleEndian)        // Number of values
 
         // byte 8-12
         // Depending on the length and the type - the data portion of the 12 byte tag 
@@ -203,8 +203,8 @@ module.exports = class ImageMeta {
         let offset = {}
         offset.data = entryOffset + 8;
         // OR
-        offset.pointer = (this.app1Offset + endianOffset) +
-            this.binary.getUint16(offset.data, this.isLittleEndian);
+        offset.pointer = (this.tiffBaseOffset) +
+            this.binary.getUint32(offset.data, this.isLittleEndian);
         
         let exifTag  = undefined;
         // Create handler object
@@ -216,7 +216,7 @@ module.exports = class ImageMeta {
             this._log('Type: ' + type + ' not handled');
             return; // Not handled
         }
-        
+
         switch (formatCode) {
             case 1: // Unsigned byte - 1 byte/component
                 this._handleUnsignedByte(exifTag, offset, length, formatCode);
