@@ -219,6 +219,7 @@ module.exports = class ImageMeta {
 
         switch (formatCode) {
             case 1: // Unsigned byte - 1 byte/component
+            case 7: // Undefined     - 1 bytes/component
                 this._handleUnsignedByte(exifTag, offset, length, formatCode);
                 break;
 
@@ -239,10 +240,6 @@ module.exports = class ImageMeta {
                 this._handleUnsignedRational(exifTag, offset, length);
                 break;
             
-            case 7: // Undefined - 1 bytes/component
-                this._handleUnsignedByte(exifTag, offset, length);
-                break;
-
             case 10: // Signed Rational - 8 bytes/component
                 this._handleSignedRational(exifTag, offset, length);
                 break;
@@ -276,7 +273,6 @@ module.exports = class ImageMeta {
     }
 
     /**
-     * 
      * @param {obj} exifTagObj - object to handle the data processing
      * @param {obj} offsetObj - offset for data and pointer in 1 obj
      * @param {int} length - number of components
@@ -293,7 +289,6 @@ module.exports = class ImageMeta {
     }
 
     /**
-     * 
      * @param {obj} exifTagObj - object to handle the data processing
      * @param {obj} offsetObj - offset for data and pointer in 1 obj
      * @param {int} length - number of components
@@ -339,7 +334,6 @@ module.exports = class ImageMeta {
     }
 
     /**
-     * 
      * @param {obj} exifTagObj - object to handle the data processing
      * @param {obj} offsetObj - offset for data and pointer in 1 obj
      * @param {int} length - number of components
@@ -397,7 +391,6 @@ module.exports = class ImageMeta {
     }
 
     /**
-     * 
      * @param {obj} exifTagObj - obj to perform the lookup
      * @param {mixed} data - the data associated with the tag
      */
