@@ -1,6 +1,6 @@
 {
   "name": "image-meta-js",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Exif parser for JPEG images",
   "keywords": [
     "exif",
